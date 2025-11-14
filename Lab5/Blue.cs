@@ -29,16 +29,86 @@ namespace Lab5
         {
 
             // code here
+            for (int i = 0;  i < matrix.GetLength(0); i++)
+            {
+                //поиск индекса максимального
+                int max = -100000000;
+                int index_max = 0;
+                for (int p = 0;  p < matrix.GetLength(1); p++)
+                {
+                    if (matrix[i, p] > max)
+                    {
+                        index_max = p;
+                        max = matrix[i, p];
+                    }
+                }
 
+                Console.WriteLine(index_max);
+
+                int index_current = 0;
+                for (int p = 0; p < matrix.GetLength(1); p++)
+                {
+                    if (p != index_max)
+                    {
+                        matrix[i, index_current] = matrix[i, p];
+                        index_current++;
+                    }
+                }
+
+                //Console.WriteLine(matrix.GetLength(0) - 1);
+                matrix[i, matrix.GetLength(1) - 1] = max;
+
+                for (int p = 0; p < matrix.GetLength(1); p++)
+                {
+                    Console.Write(matrix[i, p] + ", ");
+                }
+
+                Console.WriteLine();
+                
+            }
             // end
 
         }
         public int[,] Task4(int[,] matrix)
         {
-            int[,] answer = null;
+            int[,] answer = new int[matrix.GetLength(0), matrix.GetLength(1)+1];
 
             // code here
+            int[] list_max = new int[matrix.GetLength(0)];
 
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                //поиск индекса максимального
+                int max = -100000000;
+                for (int p = 0; p < matrix.GetLength(1); p++)
+                {
+                    if (matrix[i, p] > max)
+                    {
+                        max = matrix[i, p];
+                    }
+                }
+
+                list_max[i] = max;
+
+            }
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                int index = 0;
+                for (int p = 0; p < matrix.GetLength(1); p++)
+                {
+                    if (p != matrix.GetLength(1)-1)
+                    {
+                        answer[i, index] = matrix[i, p];
+                        index++;
+                    } else
+                    {
+                        answer[i, index] = list_max[i];
+                        index++;
+                    }
+                }
+
+            }
             // end
 
             return answer;
